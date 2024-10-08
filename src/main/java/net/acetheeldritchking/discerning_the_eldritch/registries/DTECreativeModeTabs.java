@@ -18,7 +18,9 @@ public class DTECreativeModeTabs {
             () -> CreativeModeTab.builder().icon(() -> new ItemStack(ItemRegistries.CORRUPTED_CLOTH.get()))
                     .title(Component.translatable("creative_tab.discerning_the_eldritch.items"))
                     .displayItems((itemDisplayParameters, output) -> {
-                        output.accept(ItemRegistries.CORRUPTED_CLOTH);
+                        output.accept(ItemRegistries.CORRUPTED_CLOTH.get());
+                        output.accept(ItemRegistries.BLACK_BOOK_SPELLBOOK.get());
+                        output.accept(ItemRegistries.THE_APOCRYPHA_SPELLBOOK.get());
                     }).build());
 
     public static void register(IEventBus eventBus)

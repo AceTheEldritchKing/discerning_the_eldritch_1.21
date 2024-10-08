@@ -1,5 +1,7 @@
 package net.acetheeldritchking.discerning_the_eldritch;
 
+import io.redspace.ironsspellbooks.item.SpellBook;
+import io.redspace.ironsspellbooks.render.SpellBookCurioRenderer;
 import net.acetheeldritchking.discerning_the_eldritch.registries.DTECreativeModeTabs;
 import net.acetheeldritchking.discerning_the_eldritch.registries.ItemRegistries;
 import net.minecraft.world.item.CreativeModeTabs;
@@ -19,6 +21,7 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(DiscerningTheEldritch.MOD_ID)
@@ -63,14 +66,16 @@ public class DiscerningTheEldritch
         //
     }
 
-    // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
     @EventBusSubscriber(modid = MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class ClientModEvents
     {
         @SubscribeEvent
         public static void onClientSetup(FMLClientSetupEvent event)
         {
-            // Some client setup code
+            // curios
+            event.enqueueWork(() -> {
+                ItemRegistries.getDTEItems().stream().filter(item -> item.get() instanceof SpellBook).forEach((item) -> CuriosRendererRegistry.register(item.get(), SpellBookCurioRenderer::new));
+            });
         }
     }
 }
