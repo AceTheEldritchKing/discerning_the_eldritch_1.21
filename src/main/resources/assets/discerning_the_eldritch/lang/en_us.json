@@ -8,6 +8,8 @@
   "item.discerning_the_eldritch.black_book_spellbook": "Black Book",
   "item.discerning_the_eldritch.the_apocrypha_spellbook": "The Apocrypha",
   "item.discerning_the_eldritch.corrupted_cloth": "Corrupted Cloth",
+  "item.discerning_the_eldritch.echo_vibration_ring": "Echo Vibration Ring",
+  "item.discerning_the_eldritch.echo_vibration_ring.desc": "Provides bonus recasts for Boogie Woogie",
 
 
   "spell.discerning_the_eldritch.silence": "Silence",

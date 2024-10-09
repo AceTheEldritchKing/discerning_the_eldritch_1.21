@@ -3,7 +3,7 @@ package net.acetheeldritchking.discerning_the_eldritch.registries;
 import io.redspace.ironsspellbooks.api.spells.AbstractSpell;
 import net.acetheeldritchking.discerning_the_eldritch.DiscerningTheEldritch;
 import net.acetheeldritchking.discerning_the_eldritch.spells.eldritch.SilenceSpell;
-import net.minecraft.core.Registry;
+import net.acetheeldritchking.discerning_the_eldritch.spells.evocation.BoogieWoogieSpell;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -67,6 +67,7 @@ public class SpellRegistry {
      */
 
     // Boogie Woogie - Switch places with a target
+    public static final Supplier<AbstractSpell> BOOGIE_WOOGIE = registerSpell(new BoogieWoogieSpell());
 
 
     public static void register(IEventBus eventBus)

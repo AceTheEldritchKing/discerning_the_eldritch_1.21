@@ -19,6 +19,7 @@ public class DTECreativeModeTabs {
                     .title(Component.translatable("creative_tab.discerning_the_eldritch.items"))
                     .displayItems((itemDisplayParameters, output) -> {
                         output.accept(ItemRegistries.CORRUPTED_CLOTH.get());
+                        output.accept(ItemRegistries.ECHO_VIBRATION_RING.get());
                         output.accept(ItemRegistries.BLACK_BOOK_SPELLBOOK.get());
                         output.accept(ItemRegistries.THE_APOCRYPHA_SPELLBOOK.get());
                     }).build());
