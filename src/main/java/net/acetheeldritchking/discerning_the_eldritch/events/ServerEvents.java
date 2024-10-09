@@ -6,6 +6,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextColor;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -21,21 +22,25 @@ public class ServerEvents {
     public static void onPlayerCastEvent(SpellPreCastEvent event)
     {
         var entity = event.getEntity();
-        boolean hasSilenceEffect = entity.hasEffect((Holder<MobEffect>) DTEPotionEffectRegistry.SILENCE_POTION_EFFECT.get());
+        boolean hasSilenceEffect = entity.hasEffect(DTEPotionEffectRegistry.SILENCE_POTION_EFFECT);
         if (entity instanceof ServerPlayer player && !player.level().isClientSide())
         {
             if (hasSilenceEffect)
             {
                 event.setCanceled(true);
                 // Effect Duration
-                int time = player.getEffect((Holder<MobEffect>) DTEPotionEffectRegistry.SILENCE_POTION_EFFECT.get()).getDuration();
+                int time = player.getEffect(DTEPotionEffectRegistry.SILENCE_POTION_EFFECT).getDuration();
                 // convert duration to time format  using the method convertTicksToTime
                 String formattedTime = convertTicksToTime(time);
-                // display a message to the player
-                player.displayClientMessage(Component.literal(ChatFormatting.BOLD + "Unable to cast for : " + formattedTime)
-                        .withStyle(s -> s.withColor(TextColor.fromRgb(0xF35F5F))) , true);
-                player.level().playSound(null , player.getX() , player.getY() , player.getZ() ,
-                        SoundEvents.FIRE_EXTINGUISH , SoundSource.PLAYERS , 0.5f , 1f);
+
+                if (player instanceof ServerPlayer serverPlayer)
+                {
+                    // display a message to the player
+                    serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(Component.literal(ChatFormatting.BOLD + "Unable to cast for : " + formattedTime)
+                            .withStyle(s -> s.withColor(TextColor.fromRgb(0xF35F5F)))));
+                    serverPlayer.level().playSound(null , player.getX() , player.getY() , player.getZ() ,
+                            SoundEvents.FIRE_EXTINGUISH , SoundSource.PLAYERS , 0.5f , 1f);
+                }
             }
         }
     }

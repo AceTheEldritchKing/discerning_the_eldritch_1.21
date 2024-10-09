@@ -14,6 +14,6 @@ public class SilencePotionEffect extends MobEffect {
 
     @Override
     public void fillEffectCures(Set<EffectCure> cures, MobEffectInstance effectInstance) {
-        // Idk what I'm doing
+        // Actually, I DO know what I'm doing!
     }
 }
